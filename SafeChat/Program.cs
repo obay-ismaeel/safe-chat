@@ -1,21 +1,42 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SafeChat.Application.Tokens;
+using SafeChat.Application.Users;
+using SafeChat.Domain.Users;
+using SafeChat.Extensions;
+using SafeChat.Infrastructure;
+using SafeChat.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<SafeChatDbContext>(
+    options => options.UseInMemoryDatabase("SafeChatDb")
+);
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 5;
+
+}).AddEntityFrameworkStores<SafeChatDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
+
+builder.Services.AddScoped<ITokenAppService, TokenAppService>();
+builder.Services.AddScoped<IUserAppService, UserAppService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+await DataSeeder.SeedUsersAsync(app.Services.CreateScope());
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
