@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SafeChat;
+using SafeChat.Application.Encryptions;
 using SafeChat.Application.Tokens;
 using SafeChat.Application.Users;
 using SafeChat.Domain.Users;
@@ -35,6 +36,30 @@ builder.Services.AddScoped<ITokenAppService, TokenAppService>();
 builder.Services.AddScoped<IUserAppService, UserAppService>();
 
 builder.Services.AddSignalR();
+
+//// Generate a 256-bit AES key
+//string aesKeyBase64 = AESKeyGenerator.GenerateKeyBase64(256);
+//Console.WriteLine($"Generated AES Key (Base64): {aesKeyBase64}");
+
+//var encryptService = new EncryptionAES(aesKeyBase64);
+
+//var encryptedMessage = await encryptService.EncryptAsync("Hello, User2!");
+//Console.WriteLine($"Encrypted: {encryptedMessage}");
+
+//var decryptedMessage = await encryptService.DecryptAsync(encryptedMessage);
+//Console.WriteLine($"Decrypted: {decryptedMessage}");
+
+//var (publicKey, privateKey) = RSAKeyGenerator.GenerateKeys();
+//Console.WriteLine($"Public Key: {publicKey}");
+//Console.WriteLine($"Private Key: {privateKey}");
+
+//var senderMessage = "Hello, User2!";
+//encryptedMessage = AsymmetricEncryptionService.Encrypt(senderMessage, publicKey);
+//Console.WriteLine($"Encrypted Message: {encryptedMessage}");
+
+//decryptedMessage = AsymmetricEncryptionService.Decrypt(encryptedMessage, privateKey);
+//Console.WriteLine($"Decrypted Message: {decryptedMessage}");
+
 
 var app = builder.Build();
 
