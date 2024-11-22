@@ -42,5 +42,5 @@ public class AuthController : ControllerBase
             JwtToken = JwtToken,
             ExpireDate = ExpireDate
         });
-    }
+    }   
 }
