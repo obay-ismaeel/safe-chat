@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SafeChat;
-using SafeChat.Application.Encryptions;
 using SafeChat.Application.Tokens;
 using SafeChat.Application.Users;
 using SafeChat.Domain.Users;
@@ -78,5 +77,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<ChatHub>("chat-hub");
+
+app.UseCors(builder => builder
+    .WithOrigins("https://localhost:7239/chat-hub")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+);
 
 app.Run();
