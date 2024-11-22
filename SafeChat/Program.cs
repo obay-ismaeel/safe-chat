@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SafeChat;
 using SafeChat.Application.Tokens;
 using SafeChat.Application.Users;
 using SafeChat.Domain.Users;

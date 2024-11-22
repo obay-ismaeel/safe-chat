@@ -7,18 +7,18 @@ namespace SafeChat.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthenticationController : ControllerBase
+public class AuthController : ControllerBase
 {
     private readonly IUserAppService _userAppService;
     private readonly ITokenAppService _tokenAppService;
 
-    public AuthenticationController(IUserAppService userAppService, ITokenAppService tokenAppService) : base()
+    public AuthController(IUserAppService userAppService, ITokenAppService tokenAppService) : base()
     {
         _userAppService = userAppService;
         _tokenAppService = tokenAppService;
     }
 
-    [HttpPost("loginUserName")]
+    [HttpPost("login")]
     public async Task<IActionResult> LoginUserName([FromBody] IncomingUserLoginUsingUserNameDTO incomingUserLoginUsingUserNameDTO)
     {
         var result = await _userAppService.LoginUserUsingUserNameAsync(
