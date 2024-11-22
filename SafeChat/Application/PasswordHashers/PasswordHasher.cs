@@ -8,8 +8,7 @@ public class PasswordHasher : IPasswordHasher<User>
     const char Delimiter = ';';
     public string HashPassword(User user, string password)
     {
-        var mergedPassword = $"{user.UserName}_{password}_{user.Email}";
-        var hasedPassword = PasswordHashingSalting.HashPasword(mergedPassword, out byte[] salt);
+        var hasedPassword = PasswordHashingSalting.HashPasword(password, out byte[] salt);
 
         return string.Join(Delimiter, Convert.ToHexString(salt), hasedPassword);
     }
@@ -20,9 +19,7 @@ public class PasswordHasher : IPasswordHasher<User>
         var salt = Convert.FromHexString(elements[0]);
         var hash = elements[1];
 
-        var mergedPassword = $"{user.UserName}_{providedPassword}_{user.Email}";
-
-        return PasswordHashingSalting.VerifyPassword(mergedPassword, hash, salt)
+        return PasswordHashingSalting.VerifyPassword(providedPassword, hash, salt)
             ? PasswordVerificationResult.Success
             : PasswordVerificationResult.Failed;
     }
