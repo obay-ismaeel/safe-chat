@@ -7,6 +7,7 @@ namespace SafeChat.Infrastructure;
 
 public class SafeChatDbContext : IdentityDbContext<User>
 {
+    public DbSet<Message> Messages { get; set; }
     public SafeChatDbContext(DbContextOptions options) : base(options)
     {
     }
