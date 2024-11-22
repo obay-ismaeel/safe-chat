@@ -15,10 +15,10 @@ public class ChatController : ControllerBase
         _context = context;
     }
 
-    [HttpGet]
+    [HttpGet("messages")]
     public async Task<IActionResult> GetAll()
     {
-        return Ok(await _context.Messages.ToListAsync() );
+        return Ok(await _context.Messages.ToListAsync());
     }
 
     [HttpGet("users")]
