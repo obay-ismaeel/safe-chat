@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeChat", "SafeChat\SafeChat.csproj", "{77005920-642D-4311-A2A3-7DB48D6AE429}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{0D8F533E-A351-48C6-B870-986B275C547A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{77005920-642D-4311-A2A3-7DB48D6AE429}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77005920-642D-4311-A2A3-7DB48D6AE429}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77005920-642D-4311-A2A3-7DB48D6AE429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8F533E-A351-48C6-B870-986B275C547A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8F533E-A351-48C6-B870-986B275C547A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8F533E-A351-48C6-B870-986B275C547A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8F533E-A351-48C6-B870-986B275C547A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
