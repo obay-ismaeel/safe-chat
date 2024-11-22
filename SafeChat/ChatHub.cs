@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System.Runtime.InteropServices;
-
-namespace SafeChat;
-
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using SafeChat.Infrastructure;
-using System.ComponentModel;
 using System.Security.Claims;
-using System.Threading.Tasks;
+
+namespace SafeChat;
 
 [Authorize]
 public class ChatHub : Hub<IChatClient>
