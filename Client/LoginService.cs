@@ -27,7 +27,7 @@ public class LoginService
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         // Create and send the HTTP POST request
-        var response = await _httpClient.PostAsync(Constant.LoginApi, content);
+        var response = await _httpClient.PostAsync(ClientConstant.LoginApi, content);
 
         //// Ensure the response indicates success
         //response.EnsureSuccessStatusCode();

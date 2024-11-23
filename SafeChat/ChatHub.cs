@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using SafeChat.Domain.Keys;
+using SafeChat.Domain.Messages;
 using SafeChat.Infrastructure;
+using Shared.Encryptions;
 using System.Security.Claims;
 
 namespace SafeChat;
@@ -8,7 +11,7 @@ namespace SafeChat;
 [Authorize]
 public class ChatHub : Hub<IChatClient>
 {
-    private static Dictionary<string, string> _connectedUsers = new Dictionary<string, string>();
+    private readonly static Dictionary<string, string> _connectedUsers = [];
     private readonly SafeChatDbContext _context;
 
     public ChatHub(SafeChatDbContext context)
@@ -19,7 +22,9 @@ public class ChatHub : Hub<IChatClient>
     public override Task OnConnectedAsync()
     {
         var userId = Context.User!.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
+
         _connectedUsers.Add(userId, Context.ConnectionId);
+
         return base.OnConnectedAsync();
     }
 
@@ -27,13 +32,12 @@ public class ChatHub : Hub<IChatClient>
     {
         var user = _connectedUsers.FirstOrDefault(x => x.Value == Context.ConnectionId);
         if (user.Key != null)
-        {
             _connectedUsers.Remove(user.Key);
-        }
+
         return base.OnDisconnectedAsync(exception);
     }
 
-    public async Task SendMessage(string message, string recieverId)
+    public async Task SendMessage(string message, string recieverId, EncryptionMode encryptionMode)
     {
         var result = await UserExists(recieverId);
         if (!result)
@@ -44,14 +48,25 @@ public class ChatHub : Hub<IChatClient>
         await SaveMessageToDb(message, senderId, recieverId);
 
         if (_connectedUsers.TryGetValue(recieverId, out var receiverConnectionId))
-        {
-            await Clients.Client(receiverConnectionId).RecieveMessage(message, senderId);
-        }
+            await Clients.Client(receiverConnectionId).RecieveMessage(message, encryptionMode, senderId);
+    
     }
 
     public void RegisterUser(string userId)
     {
         _connectedUsers[userId] = Context.ConnectionId;
+    }
+
+    public async Task SendKey(string recieverId, string key, EncryptionMode encryptionMode)
+    {
+        var result = await UserExists(recieverId);
+        if (!result)
+            return;
+
+        var senderId = Context.User!.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
+
+        if (_connectedUsers.TryGetValue(recieverId, out var receiverConnectionId))
+            await Clients.Client(receiverConnectionId).RecieveKey(key, encryptionMode, senderId);
     }
 
     private async Task SaveMessageToDb(string content, string senderId, string recieverId)

@@ -13,7 +13,7 @@ public class UserService
 
     public async Task<List<UserModel>> GetUsersAsync(string jwtToken)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, Constant.UserApi);
+        var request = new HttpRequestMessage(HttpMethod.Get, ClientConstant.UserApi);
         request.Headers.Add("Authorization", $"Bearer {jwtToken}");
 
         var response = await _httpClient.SendAsync(request);
