@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SafeChat.Application.Encryptions;
+namespace Shared.Encryptions;
 
 public class AsymmetricEncryptionService
 {

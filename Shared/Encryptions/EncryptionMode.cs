@@ -1,8 +1,8 @@
-﻿namespace Client.Encryptions;
+﻿namespace Shared.Encryptions;
 
 public enum EncryptionMode
 {
     None = 0,
     Symmetric,
-    Asymmmetric
+    Asymmetric
 }

@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace SafeChat.Application.Encryptions;
+namespace Shared.Encryptions;
 
 public class AESKeyGenerator
 {

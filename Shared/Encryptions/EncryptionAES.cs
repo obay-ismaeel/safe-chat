@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SafeChat.Application.Encryptions;
+namespace Shared.Encryptions;
 
 public class EncryptionAES
 {
@@ -38,7 +38,7 @@ public class EncryptionAES
         await msEncrypt.WriteAsync(iv, 0, iv.Length); // Store IV first
 
         using (var csEncrypt = new CryptoStream(msEncrypt, aesAlg.CreateEncryptor(aesAlg.Key, iv), CryptoStreamMode.Write))
-        
+
         using (var swEncrypt = new StreamWriter(csEncrypt))
         {
             await swEncrypt.WriteAsync(plainText);
