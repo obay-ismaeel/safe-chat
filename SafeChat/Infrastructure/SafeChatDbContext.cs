@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SafeChat.Domain.Messages;
 using SafeChat.Domain.Users;
 
 namespace SafeChat.Infrastructure;

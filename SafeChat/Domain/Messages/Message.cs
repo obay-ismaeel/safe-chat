@@ -1,7 +1,7 @@
 ﻿using SafeChat.Domain.Keys;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SafeChat.Infrastructure;
+namespace SafeChat.Domain.Messages;
 
 public class Message
 {
