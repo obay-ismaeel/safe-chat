@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SafeChat.Domain.Users;
+using System.Security.Claims;
 
 namespace SafeChat.Infrastructure.Data;
 

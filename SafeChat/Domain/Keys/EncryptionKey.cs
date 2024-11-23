@@ -1,4 +1,5 @@
 ﻿using SafeChat.Domain.Users;
+using Shared.Encryptions;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 

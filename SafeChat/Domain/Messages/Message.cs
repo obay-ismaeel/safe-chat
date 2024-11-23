@@ -1,4 +1,5 @@
 ﻿using SafeChat.Domain.Keys;
+using Shared.Encryptions;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SafeChat.Domain.Messages;
