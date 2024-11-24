@@ -45,7 +45,7 @@ public class ChatHub : Hub<IChatClient>
 
         var senderId = Context.User!.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
 
-        await SaveMessageToDb(message, senderId, recieverId);
+        await SaveMessageToDb(message, senderId, recieverId, encryptionMode);
 
         if (_connectedUsers.TryGetValue(recieverId, out var receiverConnectionId))
             await Clients.Client(receiverConnectionId).RecieveMessage(message, encryptionMode, senderId);
@@ -69,9 +69,9 @@ public class ChatHub : Hub<IChatClient>
             await Clients.Client(receiverConnectionId).RecieveKey(key, encryptionMode, senderId);
     }
 
-    private async Task SaveMessageToDb(string content, string senderId, string recieverId)
+    private async Task SaveMessageToDb(string content, string senderId, string recieverId, EncryptionMode encryptionMode)
     {
-        var dbMessage = new Message { Content = content, ReceiverId = new Guid(recieverId), SenderId = new Guid(senderId) };
+        var dbMessage = new Message { Content = content, ReceiverId = new Guid(recieverId), SenderId = new Guid(senderId), EncryptionMode = encryptionMode };
 
         await _context.Messages.AddAsync(dbMessage);
 

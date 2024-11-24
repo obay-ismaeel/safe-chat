@@ -18,7 +18,7 @@ public class ChatController : ControllerBase
     [HttpGet("messages")]
     public async Task<IActionResult> GetAllMessages()
     {
-        return Ok(await _context.Messages.GroupBy(x => x.EncryptionMode).ToListAsync());
+        return Ok(await _context.Messages.ToListAsync());
     }
 
     [HttpGet("users")]
